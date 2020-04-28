@@ -33,8 +33,8 @@ class _TodayPokemonPageState extends State<TodayPokemonPage> {
   }
 
   void _getTodayPokemon() async {
-    Future.delayed(Duration(milliseconds: 0)).then((value) => _resetPokemon());
-    Future.delayed(Duration(milliseconds: 25)).then((value) {
+    Future.delayed(Duration(milliseconds: 0)).then((_) => _resetPokemon());
+    Future.delayed(Duration(milliseconds: 25)).then((_) {
       // SO ref: https://stackoverflow.com/a/59693145/2393762
       final date = DateTime.now();
       final dayOfYear = date.difference(DateTime(date.year, 1, 1)).inDays + 1;
