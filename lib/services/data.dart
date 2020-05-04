@@ -9,7 +9,7 @@ class DataService {
       storage = instance;
       inited = true;
     } else {
-      Future.delayed(Duration(milliseconds: 0)).then((_) => _initStorage());
+      _initStorage();
     }
   }
 

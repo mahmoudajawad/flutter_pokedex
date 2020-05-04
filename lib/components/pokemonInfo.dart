@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_pokedex/utils/stringUtils.dart';
 import 'package:flutter_pokedex/models/pokemon.dart';
-import 'package:flutter_pokedex/screens/todayPokemon/components/pokemonCarousel.dart';
+import 'package:flutter_pokedex/components/pokemonCarousel.dart';
 
 class PokemonInfo extends StatefulWidget {
   PokemonInfo({Key key, this.pokemon, this.title}) : super(key: key);

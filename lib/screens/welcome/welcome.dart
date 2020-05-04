@@ -1,8 +1,12 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
+import 'package:flutter_pokedex/registry.dart';
+import 'package:flutter_pokedex/theme/appConstants.dart';
+
 class WelcomePage extends StatefulWidget {
-  WelcomePage() : super();
+  WelcomePage({Key key, this.registry}) : super(key: key);
+
+  final Registry registry;
 
   @override
   _WelcomePageState createState() => _WelcomePageState();
@@ -12,19 +16,17 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Pokémon of the Day'),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Flutter Pokédex'),
-            Text('Powered By:'),
-            Image.asset('assets/images/pokeapi_256.png'),
-            Expanded(
-              child: FittedBox(),
+          children: <Widget>[Column(children: [
+              Text(
+              'Flutter Pokédex',
+              style: Theme.of(context).textTheme.headline3,
             ),
+            Text('Powered By:'),
+            Image.asset('assets/images/pokeapi_256.png', fit: BoxFit.scaleDown,),
+            ],),
             Container(
                 height: 54.0,
                 margin: EdgeInsets.only(
@@ -33,11 +35,10 @@ class _WelcomePageState extends State<WelcomePage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                      print('Button Clicked.');
+                      Navigator.pushNamedAndRemoveUntil(context, '/today', (route) => false);
                     },
-                    textColor: Colors.black,
-                    color: const Color(0xffA6814B),
+                    textColor: Colors.white,
+                    color: AppConstants.buttonColor,
                     padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -61,7 +62,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             ),
                             Padding(
                                 padding: EdgeInsets.fromLTRB(4, 0, 10, 0),
-                                child: Image.asset('assets/buttonforword.png')),
+                                child: Icon(Icons.forward)),
                           ],
                         )))),
           ],

@@ -1,1 +1,0 @@
-enum PokemonOption { TODAY, RANDOM }

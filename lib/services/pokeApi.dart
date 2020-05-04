@@ -12,7 +12,7 @@ class PokeApiService {
   PokeApiService({DataService dataInstance, Client httpClientInstance}) {
     log(LogType.DEBUG, 'Initing PokeApiService');
     data =  (dataInstance == null) ? DataService() : dataInstance;
-    httpClient =  (httpClientInstance == null) ? DataService() : httpClientInstance;
+    httpClient =  (httpClientInstance == null) ? Client() : httpClientInstance;
   }
 
   Future<Pokemon> getPokemonById(int id) async {
