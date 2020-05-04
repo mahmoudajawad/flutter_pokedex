@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'screens/todayPokemon/todayPokemon.dart';
+import 'package:flutter_pokedex/routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +15,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: TodayPokemonPage(),
+      initialRoute: '/',
+      onGenerateRoute: RouteConfiguration.onGenerateRoute,
     );
   }
 }

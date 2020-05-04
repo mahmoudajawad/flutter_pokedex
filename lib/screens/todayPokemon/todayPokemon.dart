@@ -51,15 +51,17 @@ class _TodayPokemonPageState extends State<TodayPokemonPage> {
   }
 
   void _getRandomPokemon() async {
-    _resetPokemon();
-    // SO ref: https://stackoverflow.com/a/59274189/2393762
-    Random random = new Random();
-    int randomNumber = random.nextInt(365);
-    pokeApi.getPokemonById(randomNumber).then((value) {
-      setState(() {
-        _pokemonOption = PokemonOption.RANDOM;
-        _pokemon = value;
-        _pokemonLoaded = true;
+    Future.delayed(Duration(milliseconds: 0)).then((value) => _resetPokemon());
+    Future.delayed(Duration(milliseconds: 25)).then((value) {
+      // SO ref: https://stackoverflow.com/a/59274189/2393762
+      Random random = new Random();
+      int randomNumber = random.nextInt(365);
+      pokeApi.getPokemonById(randomNumber).then((value) {
+        setState(() {
+          _pokemonOption = PokemonOption.RANDOM;
+          _pokemon = value;
+          _pokemonLoaded = true;
+        });
       });
     });
   }
