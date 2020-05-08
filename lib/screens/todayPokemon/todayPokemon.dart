@@ -55,6 +55,8 @@ class _TodayPokemonPageState extends State<TodayPokemonPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Pokémon of the Day'),
+        // Removing AppBar back button: https://stackoverflow.com/a/46713257/2393762
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(

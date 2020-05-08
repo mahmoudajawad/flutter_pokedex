@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_pokedex/components/appContainer.dart';
+import 'package:flutter_pokedex/screens/pokemonStats/pokemonStats.dart';
 
 import 'package:flutter_pokedex/screens/welcome/welcome.dart';
 
@@ -16,8 +17,9 @@ class Path {
 class RouteConfiguration {
   static List<Path> paths = [
     Path(r'^/$', (context, matches) => WelcomePage()),
-    Path(r'^/today$', (context, matches) => AppContainer(selectedIndex: 0)),
+    Path(r'^/today$', (context, matches) => AppContainer(selectedIndex: 0,)),
     Path(r'^/random$', (context, matches) => AppContainer(selectedIndex: 1)),
+    Path(r'^/stats/(?<pokemonId>[0-9]+)$', (context, matches) => PokemonStatsPage(pokemonId: int.parse(matches['pokemonId']))),
   ];
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {

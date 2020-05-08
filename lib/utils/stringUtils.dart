@@ -1,6 +1,6 @@
 String capitalise(String string) {
   RegExp smallCaseRegExp = new RegExp(
-    r'(^[a-z]|\s[a-z])',
+    r'(^[a-z]|[\s\-][a-z])',
   );
   String capitalisedString = string.replaceAllMapped(smallCaseRegExp, (match) {
     return match.group(0).toUpperCase();

@@ -14,7 +14,7 @@ class RouteOption {
 }
 
 class AppContainer extends StatefulWidget {
-  AppContainer({Key key, this.selectedIndex}) : super(key: key);
+  AppContainer({Key key, @required this.selectedIndex}) : super(key: key);
 
   final int selectedIndex;
 
@@ -45,7 +45,6 @@ class _ContainerPageState extends State<AppContainer> {
     setState(() {
       _selectedIndex = index;
       // GlobalKey ref: https://stackoverflow.com/a/55218112
-      // navigator.currentState.pushNamed(_routesOptions[index][0]);
       navigator.currentState.push(MaterialPageRoute(
         builder: (context) => _routesOptions[index].page,
       ));

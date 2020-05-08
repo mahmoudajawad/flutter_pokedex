@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_pokedex/theme/appConstants.dart';
+import 'package:flutter_pokedex/components/appButton.dart';
 
 class WelcomePage extends StatefulWidget {
   WelcomePage({Key key}) : super(key: key);
@@ -24,44 +24,7 @@ class _WelcomePageState extends State<WelcomePage> {
             Text('Powered By:'),
             Image.asset('assets/images/pokeapi_256.png', fit: BoxFit.scaleDown,),
             ],),
-            Container(
-                height: 54.0,
-                margin: EdgeInsets.only(
-                    left: 28.0, right: 28.0, top: 50.0, bottom: 50.0),
-                child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(context, '/today', (route) => false);
-                    },
-                    textColor: Colors.white,
-                    color: AppConstants.buttonColor,
-                    padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 10, 0),
-                                child: Text('   ')),
-                            Container(
-                              color: Colors.transparent,
-                              padding: EdgeInsets.fromLTRB(10, 4, 4, 4),
-                              child: Text(
-                                'GO TO HOME',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Padding(
-                                padding: EdgeInsets.fromLTRB(4, 0, 10, 0),
-                                child: Icon(Icons.forward)),
-                          ],
-                        )))),
+            AppButton(text: 'Go To Home', icon: Icon(Icons.forward), route: '/today', removeHistory: true)
           ],
         ),
       ),

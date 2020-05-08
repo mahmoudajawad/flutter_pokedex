@@ -11,7 +11,6 @@ void setupGetIt() {
   GetIt.I.registerSingleton<PokeApiService>(PokeApiService());
 }
 
-
 void main() {
   runApp(MyApp());
   setupGetIt();

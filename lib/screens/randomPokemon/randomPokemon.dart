@@ -53,6 +53,7 @@ class _RandomPokemonPageState extends State<RandomPokemonPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Random Pokémon'),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(

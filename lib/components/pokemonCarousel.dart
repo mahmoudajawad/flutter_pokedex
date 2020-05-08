@@ -7,7 +7,7 @@ import 'package:flutter_pokedex/models/pokemonSprites.dart';
 import 'package:flutter_pokedex/utils/stringUtils.dart';
 
 class PokemonCarousel extends StatefulWidget {
-  PokemonCarousel({Key key, this.pokemon}) : super(key: key);
+  PokemonCarousel({Key key, @required this.pokemon}) : super(key: key);
 
   final Pokemon pokemon;
 
