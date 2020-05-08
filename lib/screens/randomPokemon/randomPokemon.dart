@@ -1,30 +1,27 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
-import 'package:flutter_pokedex/registry.dart';
 import 'package:flutter_pokedex/components/pokemonInfo.dart';
 import 'package:flutter_pokedex/services/pokeApi.dart';
 import 'package:flutter_pokedex/models/pokemon.dart';
 import 'package:flutter_pokedex/utils/logger.dart';
 
-class RandomPokemonPage extends StatefulWidget {
-  RandomPokemonPage({Key key, this.registry}) : super(key: key);
 
-  final Registry registry;
+class RandomPokemonPage extends StatefulWidget {
+  RandomPokemonPage({Key key}) : super(key: key);
 
   @override
   _RandomPokemonPageState createState() => _RandomPokemonPageState();
 }
 
 class _RandomPokemonPageState extends State<RandomPokemonPage> {
-  PokeApiService pokeApi;
   Pokemon _pokemon;
   bool _pokemonLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    pokeApi = widget.registry.getService('pokeApi');
     _getRandomPokemon();
   }
 
@@ -42,7 +39,7 @@ class _RandomPokemonPageState extends State<RandomPokemonPage> {
       // SO ref: https://stackoverflow.com/a/59274189/2393762
       Random random = new Random();
       int randomNumber = random.nextInt(365);
-      pokeApi.getPokemonById(randomNumber).then((value) {
+      GetIt.I<PokeApiService>().getPokemonById(randomNumber).then((value) {
         setState(() {
           _pokemon = value;
           _pokemonLoaded = true;

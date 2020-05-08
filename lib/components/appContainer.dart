@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_pokedex/registry.dart';
 import 'package:flutter_pokedex/routes.dart';
 import 'package:flutter_pokedex/screens/randomPokemon/randomPokemon.dart';
 import 'package:flutter_pokedex/screens/todayPokemon/todayPokemon.dart';
@@ -15,10 +14,9 @@ class RouteOption {
 }
 
 class AppContainer extends StatefulWidget {
-  AppContainer({Key key, this.registry, this.selectedIndex}) : super(key: key);
+  AppContainer({Key key, this.selectedIndex}) : super(key: key);
 
   final int selectedIndex;
-  final Registry registry;
 
   @override
   _ContainerPageState createState() => _ContainerPageState();
@@ -34,16 +32,8 @@ class _ContainerPageState extends State<AppContainer> {
     super.initState();
     setState(() {
       _routesOptions = [
-        RouteOption(
-            route: '/today',
-            page: TodayPokemonPage(
-              registry: widget.registry,
-            )),
-        RouteOption(
-            route: '/random',
-            page: RandomPokemonPage(
-              registry: widget.registry,
-            )),
+        RouteOption(route: '/today', page: TodayPokemonPage()),
+        RouteOption(route: '/random', page: RandomPokemonPage()),
       ];
       _selectedIndex = widget.selectedIndex;
       Future.delayed(Duration(milliseconds: 25))

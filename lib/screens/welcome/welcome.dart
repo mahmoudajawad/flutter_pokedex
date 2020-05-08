@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_pokedex/registry.dart';
 import 'package:flutter_pokedex/theme/appConstants.dart';
 
 class WelcomePage extends StatefulWidget {
-  WelcomePage({Key key, this.registry}) : super(key: key);
-
-  final Registry registry;
+  WelcomePage({Key key}) : super(key: key);
 
   @override
   _WelcomePageState createState() => _WelcomePageState();

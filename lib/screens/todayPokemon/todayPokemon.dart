@@ -1,31 +1,27 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
-import 'package:flutter_pokedex/registry.dart';
 import 'package:flutter_pokedex/components/pokemonInfo.dart';
 import 'package:flutter_pokedex/services/pokeApi.dart';
 import 'package:flutter_pokedex/models/pokemon.dart';
-import 'package:flutter_pokedex/utils/enums.dart';
 import 'package:flutter_pokedex/utils/logger.dart';
 
-class TodayPokemonPage extends StatefulWidget {
-  TodayPokemonPage({Key key, this.registry}) : super(key: key);
 
-  final Registry registry;
+class TodayPokemonPage extends StatefulWidget {
+  TodayPokemonPage({Key key}) : super(key: key);
 
   @override
   _TodayPokemonPageState createState() => _TodayPokemonPageState();
 }
 
 class _TodayPokemonPageState extends State<TodayPokemonPage> {
-  PokeApiService pokeApi;
   Pokemon _pokemon;
   bool _pokemonLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    pokeApi = widget.registry.getService('pokeApi');
     _getTodayPokemon();
   }
 
@@ -44,7 +40,7 @@ class _TodayPokemonPageState extends State<TodayPokemonPage> {
       final date = DateTime.now();
       final dayOfYear = date.difference(DateTime(date.year, 1, 1)).inDays + 1;
 
-      pokeApi.getPokemonById(dayOfYear).then((value) {
+      GetIt.I<PokeApiService>().getPokemonById(dayOfYear).then((value) {
         log(LogType.DEBUG, 'Setting Pokemon');
         setState(() {
           _pokemon = value;
