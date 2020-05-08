@@ -5,8 +5,6 @@ import 'package:flutter_pokedex/routes.dart';
 import 'package:flutter_pokedex/theme/appTheme.dart';
 import 'package:flutter_pokedex/services/pokeApi.dart';
 
-final getIt = GetIt.instance;
-
 void setupGetIt() {
   GetIt.I.registerSingleton<PokeApiService>(PokeApiService());
 }
