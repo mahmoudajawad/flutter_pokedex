@@ -52,50 +52,55 @@ class _ContainerPageState extends State<AppContainer> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-          padding: EdgeInsets.only(top: 0),
-          child: Expanded(
-            child: Navigator(
-              key: navigator,
-              initialRoute: '/',
-              onUnknownRoute: (RouteSettings settings) {
-                return MaterialPageRoute(
-                    builder: (context) => TodayPokemonPage(),
-                    settings: settings);
-              },
-              onGenerateRoute: RouteConfiguration.onGenerateRoute,
-            ),
-          )),
-      bottomNavigationBar: new Theme(
-        data: Theme.of(context).copyWith(
-            // sets the background color of the `BottomNavigationBar`
-            canvasColor: Colors.black,
-            // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-            primaryColor: AppConstants.buttonColor,
-            textTheme: Theme.of(context).textTheme.copyWith(
-                caption: new TextStyle(
-                    color: Colors
-                        .white))), // sets the inactive color of the `BottomNavigationBar`
-        child: new BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.today),
-              title: Text(
-                'Today',
-                style: TextStyle(fontSize: 10.0),
+    return WillPopScope(
+      child: Scaffold(
+        body: Container(
+            padding: EdgeInsets.only(top: 0),
+            child: Expanded(
+              child: Navigator(
+                key: navigator,
+                initialRoute: '/',
+                onUnknownRoute: (RouteSettings settings) {
+                  return MaterialPageRoute(
+                      builder: (context) => TodayPokemonPage(),
+                      settings: settings);
+                },
+                onGenerateRoute: RouteConfiguration.onGenerateRoute,
               ),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.refresh),
-              title: Text('Random', style: TextStyle(fontSize: 10.0)),
-            ),
-          ],
+            )),
+        bottomNavigationBar: new Theme(
+          data: Theme.of(context).copyWith(
+              // sets the background color of the `BottomNavigationBar`
+              canvasColor: Colors.black,
+              // sets the active color of the `BottomNavigationBar` if `Brightness` is light
+              primaryColor: AppConstants.buttonColor,
+              textTheme: Theme.of(context).textTheme.copyWith(
+                  caption: new TextStyle(
+                      color: Colors
+                          .white))), // sets the inactive color of the `BottomNavigationBar`
+          child: new BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.today),
+                title: Text(
+                  'Today',
+                  style: TextStyle(fontSize: 10.0),
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.refresh),
+                title: Text('Random', style: TextStyle(fontSize: 10.0)),
+              ),
+            ],
+          ),
         ),
       ),
+      onWillPop: () async {
+        return !await navigator.currentState.maybePop();
+      },
     );
   }
 }
