@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_pokedex/routes.dart';
+
 import 'package:flutter_pokedex/screens/randomPokemon/randomPokemon.dart';
 import 'package:flutter_pokedex/screens/todayPokemon/todayPokemon.dart';
 import 'package:flutter_pokedex/theme/appConstants.dart';
@@ -14,9 +14,9 @@ class RouteOption {
 }
 
 class AppContainer extends StatefulWidget {
-  AppContainer({Key key, @required this.selectedIndex}) : super(key: key);
-
   final int selectedIndex;
+
+  AppContainer({Key key, @required this.selectedIndex}) : super(key: key);
 
   @override
   _ContainerPageState createState() => _ContainerPageState();
@@ -45,10 +45,25 @@ class _ContainerPageState extends State<AppContainer> {
     setState(() {
       _selectedIndex = index;
       // GlobalKey ref: https://stackoverflow.com/a/55218112
-      navigator.currentState.push(MaterialPageRoute(
-        builder: (context) => _routesOptions[index].page,
-      ));
+      // navigator.currentState.pushReplacement(MaterialPageRoute(
+      //   builder: (context) => _routesOptions[index].page,
+      // ));
+      pages.add(NavigatorPage(page: _routesOptions[index].page));
     });
+  }
+
+  CustomBuilderPage generateRoute(dynamic page) {
+    return CustomBuilderPage<void>(
+      key: ValueKey(page.hashCode),
+      routeBuilder: (context, settings) {
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (context) {
+            return page.page;
+          },
+        );
+      },
+    );
   }
 
   Widget build(BuildContext context) {
@@ -58,14 +73,17 @@ class _ContainerPageState extends State<AppContainer> {
             padding: EdgeInsets.only(top: 0),
             child: Expanded(
               child: Navigator(
-                key: navigator,
-                initialRoute: '/',
-                onUnknownRoute: (RouteSettings settings) {
-                  return MaterialPageRoute(
-                      builder: (context) => TodayPokemonPage(),
-                      settings: settings);
+                key: containerKey,
+                onPopPage: (Route<dynamic> route, dynamic result) {
+                  final success = route.didPop(result);
+                  if (success) {
+                    pages.removeLast();
+                  }
+                  return success;
                 },
-                onGenerateRoute: RouteConfiguration.onGenerateRoute,
+                pages: pages.map(generateRoute).toList(),
+                onGenerateRoute: RouteConfiguration.onGeneratePage,
+                onUnknownRoute: (RouteSettings routeSettings) { return null; },
               ),
             )),
         bottomNavigationBar: new Theme(
@@ -99,7 +117,13 @@ class _ContainerPageState extends State<AppContainer> {
         ),
       ),
       onWillPop: () async {
-        return !await navigator.currentState.maybePop();
+        if (pages.length > 1) {
+          pages.removeLast();
+        } else {
+          // exit();
+          print('exit()');
+        }
+        return false;
       },
     );
   }

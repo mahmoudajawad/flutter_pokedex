@@ -10,15 +10,21 @@ void setupGetIt() {
 }
 
 void main() {
-  runApp(MyApp());
+  final app = App();
+  runApp(app);
   setupGetIt();
 }
 
-class MyApp extends StatelessWidget {
+class AppState extends ChangeNotifier {
+
+}
+
+class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: appKey,
       title: 'Flutter Pokédex',
       theme: appTheme(),
       initialRoute: '/',
